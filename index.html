@@ -23,7 +23,7 @@
             --transicion: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Estilos Base Estáticos (Sin Scroll Excesivo) */
+        /* Estilos Base Estáticos */
         * {
             margin: 0;
             padding: 0;
@@ -58,11 +58,7 @@
             max-width: 1100px;
             margin: 0 auto;
             padding: 12px 20px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
+            position: relative;
         }
 
         .logo-img {
@@ -71,14 +67,23 @@
             object-fit: contain;
         }
 
-        /* Bloque derecho del menú */
+        /* Hamburguesa para Móviles */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-negro-logo);
+            cursor: pointer;
+            z-index: 1100;
+        }
+
         .nav-right {
             display: flex;
             align-items: center;
             gap: 30px;
         }
 
-        /* Menú de Navegación por Pestañas (Tabs) */
         .nav-links {
             display: flex;
             list-style: none;
@@ -106,7 +111,6 @@
             opacity: 1;
         }
 
-        /* Línea indicadora debajo de la pestaña activa */
         .nav-links button::after {
             content: "";
             position: absolute;
@@ -122,19 +126,18 @@
             width: 100%;
         }
 
-        /* Botón de Reserva Rápida en el Header */
         .btn-header-reserva {
             display: inline-block;
             background-color: var(--color-negro-logo);
             color: var(--color-blanco);
             padding: 10px 22px;
-            text-decoration: none;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 600;
             transition: var(--transicion);
             border: 1px solid var(--color-negro-logo);
+            cursor: pointer;
         }
 
         .btn-header-reserva:hover {
@@ -166,7 +169,6 @@
             overflow: hidden;
         }
 
-        /* Vistas dinámicas ocultas por defecto */
         .tab-view {
             display: none;
             padding: 50px;
@@ -174,7 +176,6 @@
             animation: fadeIn 0.5s ease forwards;
         }
 
-        /* Mostrar solo la pestaña activa */
         .tab-view.active {
             display: flex;
             flex-direction: column;
@@ -186,9 +187,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- ESTILOS DE CADA VISTA --- */
-
-        /* Inicio / Bienvenida */
+        /* --- VISTA: INICIO --- */
         .hero-view {
             text-align: center;
             max-width: 650px;
@@ -214,7 +213,6 @@
             background-color: var(--color-negro-logo);
             color: var(--color-blanco);
             padding: 14px 35px;
-            text-decoration: none;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -230,10 +228,102 @@
             box-shadow: inset 0 0 0 1px var(--color-negro-logo);
         }
 
-        /* Cuadrícula de Servicios e Integrantes */
+        /* --- VISTA: CALENDARIO DE RESERVAS --- */
+        .reserva-container {
+            max-width: 700px;
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+        }
+
+        .reserva-container h2 {
+            font-family: var(--fuente-titulos);
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--color-negro-logo);
+            margin-bottom: 10px;
+        }
+
+        .direccion-texto {
+            font-size: 0.9rem;
+            color: var(--color-texto-suave);
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .seccion-agenda {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .seccion-agenda label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--color-negro-logo);
+        }
+
+        /* Selects e Inputs */
+        .select-servicio, .input-fecha {
+            width: 100%;
+            padding: 12px;
+            font-family: var(--fuente-cuerpo);
+            font-size: 1rem;
+            border: 1px solid rgba(26, 26, 26, 0.15);
+            background-color: var(--color-fondo-claro);
+            color: var(--color-negro-logo);
+            outline: none;
+            transition: var(--transicion);
+        }
+
+        .select-servicio:focus, .input-fecha:focus {
+            border-color: var(--color-negro-logo);
+        }
+
+        /* Grid de Horarios */
+        .horas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .hora-btn {
+            background-color: var(--color-fondo-claro);
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            padding: 12px 0;
+            font-family: var(--fuente-cuerpo);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-negro-logo);
+            cursor: pointer;
+            transition: var(--transicion);
+            text-align: center;
+        }
+
+        .hora-btn:hover {
+            border-color: var(--color-negro-logo);
+            background-color: rgba(26, 26, 26, 0.02);
+        }
+
+        .hora-btn.selected {
+            background-color: var(--color-negro-logo);
+            color: var(--color-blanco);
+            border-color: var(--color-negro-logo);
+        }
+
+        .btn-confirmar-resulta {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        /* --- OTRAS VISTAS (Servicios / Equipo / Salón) --- */
         .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
@@ -248,29 +338,36 @@
             font-size: 1.5rem;
             font-weight: 400;
             color: var(--color-negro-logo);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 1px solid rgba(26, 26, 26, 0.1);
             padding-bottom: 8px;
+            letter-spacing: 1px;
         }
 
-        .sub-card ul {
-            list-style: none;
-        }
-
+        .sub-card ul { list-style: none; }
+        
+        /* Estilos para Lista con Precios Alineados */
         .sub-card ul li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 0.95rem;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            border-bottom: 1px dashed rgba(26, 26, 26, 0.08);
+            padding-bottom: 6px;
         }
 
-        .sub-card ul li::before {
-            content: "—";
+        .servicio-nombre {
+            font-weight: 400;
+            color: var(--color-texto-suave);
+        }
+
+        .servicio-precio {
+            font-weight: 600;
             color: var(--color-negro-logo);
+            font-family: var(--fuente-cuerpo);
         }
 
-        /* Especialistas */
         .profesional-card {
             background-color: var(--color-fondo-claro);
             padding: 35px 25px;
@@ -334,6 +431,7 @@
             font-weight: 500;
             transition: var(--transicion);
             margin-top: 10px;
+            cursor: pointer;
         }
 
         .btn-secundario:hover {
@@ -341,7 +439,6 @@
             color: var(--color-blanco);
         }
 
-        /* Variación Peluquería Próximamente */
         .proximamente {
             border-style: dashed;
             background-color: rgba(26, 26, 26, 0.01);
@@ -351,7 +448,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #d4a373; /* Tono sutil dorado/alerta */
+            color: #d4a373;
             font-weight: 600;
             margin-bottom: 5px;
         }
@@ -368,7 +465,6 @@
             border-style: solid;
         }
 
-        /* El Salón / Sobre Nosotras */
         .info-view {
             text-align: center;
             max-width: 700px;
@@ -389,7 +485,7 @@
             margin-bottom: 15px;
         }
 
-        /* Footer Fijo Elegante */
+        /* Footer */
         footer {
             background-color: var(--color-negro-logo);
             color: var(--color-blanco);
@@ -408,26 +504,7 @@
             margin-bottom: 15px;
         }
 
-        .footer-actions p {
-            opacity: 0.8;
-            font-weight: 300;
-        }
-
-        .btn-footer-wa {
-            background-color: var(--color-blanco);
-            color: var(--color-negro-logo);
-            padding: 8px 20px;
-            text-decoration: none;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-            transition: var(--transicion);
-        }
-
-        .btn-footer-wa:hover {
-            background-color: var(--color-fondo-nude);
-        }
+        .footer-actions p { opacity: 0.8; font-weight: 300; }
 
         .footer-links a {
             color: var(--color-blanco);
@@ -438,45 +515,50 @@
             transition: var(--transicion);
         }
 
-        .footer-links a:hover {
-            opacity: 1;
-        }
+        .footer-links a:hover { opacity: 1; }
 
-        /* Adaptación para Celulares */
+        /* Adaptación para Dispositivos Móviles */
         @media (max-width: 820px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px;
+            .menu-toggle {
+                display: block;
             }
+
             .nav-right {
-                width: 100%;
+                display: none;
                 flex-direction: column;
-                gap: 12px;
-            }
-            .nav-links {
-                gap: 15px;
-            }
-            .btn-header-reserva {
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
-                text-align: center;
-                padding: 8px 15px;
+                background-color: rgba(255, 255, 255, 0.98);
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                border-bottom: 1px solid rgba(26, 26, 26, 0.05);
+                gap: 20px;
             }
-            .tab-view {
-                padding: 30px 20px;
+
+            .nav-right.open {
+                display: flex;
             }
-            .hero-view h1 {
-                font-size: 2.2rem;
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                width: 100%;
             }
-            main {
-                padding: 15px 10px;
+
+            .btn-header-reserva { 
+                width: 100%; 
+                text-align: center; 
+                padding: 12px; 
             }
-            .window-card {
-                min-height: auto;
-            }
-            .profesional-card {
-                min-height: auto;
-            }
+
+            .tab-view { padding: 30px 10px; }
+            .hero-view h1 { font-size: 2.2rem; }
+            main { padding: 15px 5px; }
+            .window-card { min-height: auto; }
+            .profesional-card { min-height: auto; }
         }
     </style>
 </head>
@@ -489,16 +571,17 @@
                 <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Logo Entre Nosotras" class="logo-img">
             </a>
             
-            <div class="nav-right">
-                <!-- Botones Cliqueables del Menú -->
+            <!-- Botón Hamburguesa -->
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú">☰</button>
+            
+            <div class="nav-right" id="navMenu">
                 <ul class="nav-links">
                     <li><button id="btn-inicio" class="active" onclick="switchTab('inicio')">Inicio</button></li>
                     <li><button id="btn-servicios" onclick="switchTab('servicios')">Servicios</button></li>
                     <li><button id="btn-equipo" onclick="switchTab('equipo')">Especialistas</button></li>
                     <li><button id="btn-salon" onclick="switchTab('salon')">El Salón</button></li>
                 </ul>
-                <!-- BOTÓN RESERVAR AHORA AL TIRO ARRIBA -->
-                <a href="https://wa.me/569XXXXXXXX" target="_blank" class="btn-header-reserva">Reservar Ahora</a>
+                <button onclick="switchTab('reservar')" id="btn-reservar-nav" class="btn-header-reserva">Reservar Ahora</button>
             </div>
         </nav>
     </header>
@@ -511,29 +594,124 @@
             <div id="view-inicio" class="tab-view active hero-view">
                 <h1>Entre Nosotras</h1>
                 <p>Tu espacio de calma, cuidado y belleza en Los Andes. Déjate consentir con servicios personalizados diseñados para resaltar tu esencia natural.</p>
-                <a href="https://wa.me/569XXXXXXXX" target="_blank" class="btn-principal">Reservar Ahora</a>
+                <button onclick="switchTab('reservar')" class="btn-principal">Reservar Ahora</button>
             </div>
 
-            <!-- Pestaña 2: Servicios -->
+            <!-- PESTAÑA INTERACTIVA: RESERVA CON CALENDARIO -->
+            <div id="view-reservar" class="tab-view">
+                <div class="reserva-container">
+                    <h2>Reserva tu Hora</h2>
+                    <p class="direccion-texto">📍 Ubicación: Santa Rosa 480, Los Andes</p>
+                    
+                    <!-- 1. Selección de Servicio -->
+                    <div class="seccion-agenda">
+                        <label for="servicio-reserva">1. Selecciona el servicio:</label>
+                        <select id="servicio-reserva" class="select-servicio">
+                            <option value="" disabled selected>— Elige un servicio —</option>
+                            <optgroup label="Manicura">
+                                <option value="Limpieza/Exfoliación Manicura">Limpieza/Exfoliación — $9.000</option>
+                                <option value="Esmaltado Tradicional Manicura">Esmaltado Tradicional — $12.000</option>
+                                <option value="Colores Lisos Manicura">Colores Lisos — $17.000</option>
+                                <option value="Personalizado Manicura">Personalizado — $20.000</option>
+                                <option value="Kapping Polygel">Kapping Polygel — $5.000</option>
+                            </optgroup>
+                            <optgroup label="Pedicura">
+                                <option value="Podología Preventiva">Podología Preventiva — $12.000</option>
+                                <option value="Esmaltado Tradicional Pedicura">Esmaltado Tradicional — $16.000</option>
+                                <option value="Colores Lisos Pedicura">Colores Lisos — $18.000</option>
+                                <option value="Personalizado Pedicura">Personalizado — $20.000</option>
+                                <option value="Reconstrucción C/U">Reconstrucción C/U — $2.000</option>
+                            </optgroup>
+                            <optgroup label="Depilación">
+                                <option value="Perfilado de cejas">Perfilado de cejas — $3.000</option>
+                                <option value="Bozo">Bozo — $5.000</option>
+                                <option value="Rostro completo">Rostro completo — $7.000</option>
+                                <option value="Axilas">Axilas — $4.000</option>
+                                <option value="Medios Brazos">Medios Brazos — $5.000</option>
+                                <option value="Brazos completos">Brazos completos — $7.000</option>
+                                <option value="Abdomen">Abdomen — $6.000</option>
+                                <option value="Media Espalda">Media Espalda — $5.000</option>
+                                <option value="Espalda completa">Espalda completa — $7.000</option>
+                                <option value="Rebaje/Interglúteos">Rebaje/Interglúteos — $13.000</option>
+                                <option value="Rebaje Bikini">Rebaje Bikini — $8.000</option>
+                                <option value="Glúteos">Glúteos — $6.000</option>
+                                <option value="Medias piernas">Medias piernas — $8.000</option>
+                                <option value="Piernas completas">Piernas completas — $14.000</option>
+                                <option value="Depilación pies">Depilación pies — $3.000</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- 2. Selección de Día -->
+                    <div class="seccion-agenda">
+                        <label for="fecha-reserva">2. Selecciona el día:</label>
+                        <input type="date" id="fecha-reserva" class="input-fecha">
+                    </div>
+
+                    <!-- 3. Selección de Horas -->
+                    <div class="seccion-agenda">
+                        <label>3. Selecciona la hora (Horario Militar):</label>
+                        <div class="horas-grid">
+                            <button class="hora-btn" onclick="selectHora(this, '10:00')">10:00</button>
+                            <button class="hora-btn" onclick="selectHora(this, '12:00')">12:00</button>
+                            <button class="hora-btn" onclick="this, selectHora(this, '14:00')">14:00</button>
+                            <button class="hora-btn" onclick="selectHora(this, '16:00')">16:00</button>
+                            <button class="hora-btn" onclick="selectHora(this, '18:00')">18:00</button>
+                            <button class="hora-btn" onclick="selectHora(this, '20:00')">20:00</button>
+                        </div>
+                    </div>
+
+                    <!-- Botón de Envío -->
+                    <button class="btn-principal btn-confirmar-resulta" onclick="enviarReserva()">Confirmar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- Pestaña 2: Servicios (ACTUALIZADA CON PRECIOS) -->
             <div id="view-servicios" class="tab-view">
                 <div class="grid-layout">
-                    <!-- Manos & Pies -->
+                    <!-- Categoría: Manicura -->
                     <div class="sub-card">
-                        <h3>Manos & Pies</h3>
+                        <h3>Manicura</h3>
                         <ul>
-                            <li>Esmaltado Permanente</li>
-                            <li>Esmaltado Tradicional</li>
-                            <li>Manicure Completa</li>
-                            <li>Pedicure Profesional</li>
+                            <li><span class="servicio-nombre">Limpieza/Exfoliación</span> <span class="servicio-precio">$9.000</span></li>
+                            <li><span class="servicio-nombre">Esmaltado Tradicional</span> <span class="servicio-precio">$12.000</span></li>
+                            <li><span class="servicio-nombre">Colores Lisos</span> <span class="servicio-precio">$17.000</span></li>
+                            <li><span class="servicio-nombre">Personalizado</span> <span class="servicio-precio">$20.000</span></li>
+                            <li><span class="servicio-nombre">Kapping Polygel</span> <span class="servicio-precio">$5.000</span></li>
                         </ul>
                     </div>
-                    <!-- Depilación -->
+
+                    <!-- Categoría: Pedicura -->
+                    <div class="sub-card">
+                        <h3>Pedicura</h3>
+                        <ul>
+                            <li><span class="servicio-nombre">Podología Preventiva</span> <span class="servicio-precio">$12.000</span></li>
+                            <li><span class="servicio-nombre">Esmaltado Tradicional</span> <span class="servicio-precio">$16.000</span></li>
+                            <li><span class="servicio-nombre">Colores Lisos</span> <span class="servicio-precio">$18.000</span></li>
+                            <li><span class="servicio-nombre">Personalizado</span> <span class="servicio-precio">$20.000</span></li>
+                            <li><span class="servicio-nombre">Reconstrucción C/U</span> <span class="servicio-precio">$2.000</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Categoría: Depilación -->
                     <div class="sub-card">
                         <h3>Depilación</h3>
                         <ul>
-                            <li>Depilación Facial</li>
-                            <li>Depilación Corporal</li>
-                            <li>Técnicas Delicadas</li>
+                            <li><span class="servicio-nombre">Perfilado de cejas</span> <span class="servicio-precio">$3.000</span></li>
+                            <li><span class="servicio-nombre">Bozo</span> <span class="servicio-precio">$5.000</span></li>
+                            <li><span class="servicio-nombre">Rostro completo</span> <span class="servicio-precio">$7.000</span></li>
+                            <li><span class="servicio-nombre">Axilas</span> <span class="servicio-precio">$4.000</span></li>
+                            <li><span class="servicio-nombre">Medios Brazos</span> <span class="servicio-precio">$5.000</span></li>
+                            <li><span class="servicio-nombre">Brazos completos</span> <span class="servicio-precio">$7.000</span></li>
+                            <li><span class="servicio-nombre">Abdomen</span> <span class="servicio-precio">$6.000</span></li>
+                            <li><span class="servicio-nombre">Media Espalda</span> <span class="servicio-precio">$5.000</span></li>
+                            <li><span class="servicio-nombre">Espalda completa</span> <span class="servicio-precio">$7.000</span></li>
+                            <li><span class="servicio-nombre">Rebaje/Interglúteos</span> <span class="servicio-precio">$13.000</span></li>
+                            <li><span class="servicio-nombre">Rebaje Bikini</span> <span class="servicio-precio">$8.000</span></li>
+                            <li><span class="servicio-nombre">Glúteos</span> <span class="servicio-precio">$6.000</span></li>
+                            <li><span class="servicio-nombre">Medias piernas</span> <span class="servicio-precio">$8.000</span></li>
+                            <li><span class="servicio-nombre">Piernas completas</span> <span class="servicio-precio">$14.000</span></li>
+                            <li><span class="servicio-nombre">Depilación pies</span> <span class="servicio-precio">$3.000</span></li>
                         </ul>
                     </div>
                 </div>
@@ -542,7 +720,6 @@
             <!-- Pestaña 3: Especialistas -->
             <div id="view-equipo" class="tab-view">
                 <div class="grid-layout">
-                    <!-- Carla -->
                     <div class="profesional-card">
                         <div class="profesional-info">
                             <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Carla" class="profesional-logo">
@@ -551,7 +728,6 @@
                             <p>Especialista en el cuidado integral de tus manos y pies, con acabados impecables.</p>
                         </div>
                     </div>
-                    <!-- Lash Marii -->
                     <div class="profesional-card">
                         <div class="profesional-info">
                             <img src="https://i.postimg.cc/JDLsgyv4/IMG-3638.jpg" alt="Lash Marii" class="profesional-logo">
@@ -561,17 +737,15 @@
                         </div>
                         <a href="https://lashmarii-web.vercel.app" target="_blank" class="btn-secundario">Portafolio</a>
                     </div>
-                    <!-- Peluquería (Actualizada con convocatoria) -->
                     <div class="profesional-card proximamente">
                         <div class="profesional-info">
-                            <!-- Aquí podrás reemplazar esta URL temporal por la que me envíes después -->
                             <img src="https://via.placeholder.com/105" alt="Próximamente Peluquería" class="profesional-logo" id="logo-peluqueria">
                             <div class="proximamente-texto">Próximamente</div>
                             <h3>Peluquería</h3>
                             <div class="profesional-rol">Estilismo Capilar</div>
                             <p>¿Te gustaría tener tu propio espacio aquí con nosotras?</p>
                         </div>
-                        <a href="https://wa.me/569XXXXXXXX" target="_blank" class="btn-secundario btn-trabaja">Trabaja con nosotras</a>
+                        <a href="https://wa.me/56936383638?text=Hola%20Carla,%20me%20interesa%20saber%20más%20sobre%20el%20espacio%20de%20peluquería." target="_blank" class="btn-secundario btn-trabaja">Trabaja con nosotras</a>
                     </div>
                 </div>
             </div>
@@ -586,11 +760,10 @@
         </div>
     </main>
 
-    <!-- Footer Fijo de Contacto -->
+    <!-- Footer -->
     <footer>
         <div class="footer-actions">
-            <p>Los Andes, Región de Valparaíso — Atendido por Carla</p>
-            <a href="https://wa.me/569XXXXXXXX" target="_blank" class="btn-footer-wa">Agendar Cita</a>
+            <p>Santa Rosa 480, Los Andes — Atendido por Carla</p>
         </div>
         <div class="footer-links">
             <a href="https://instagram.com/" target="_blank">Instagram</a>
@@ -598,26 +771,87 @@
         </div>
     </footer>
 
-    <!-- Script en Vanilla JS para controlar las vistas dinámicas -->
+    <!-- Logica JavaScript para Pestañas, Menú y Calendario -->
     <script>
-        function switchTab(tabId) {
-            // 1. Quitar la clase activa de todos los botones de navegación
-            document.querySelectorAll('.nav-links button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // 2. Ocultar todas las vistas de contenido
-            document.querySelectorAll('.tab-view').forEach(view => {
-                view.classList.remove('active');
-            });
+        let horaSeleccionada = "";
 
-            // 3. Activar el botón correspondiente
+        // Establecer la fecha mínima dinámicamente al cargar la página (No permitir días pasados)
+        window.addEventListener('DOMContentLoaded', () => {
+            const hoy = new Date();
+            const yyyy = hoy.getFullYear();
+            let mm = hoy.getMonth() + 1; 
+            let dd = hoy.getDate();
+
+            if (mm < 10) mm = '0' + mm;
+            if (dd < 10) dd = '0' + dd;
+
+            const fechaMinima = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('fecha-reserva').min = fechaMinima;
+        });
+
+        // Alternar visualización del menú en pantallas móviles
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('open');
+        }
+
+        // Cambiar entre pestañas de la aplicación
+        function switchTab(tabId) {
+            document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
+
             const targetBtn = document.getElementById(`btn-${tabId}`);
             if (targetBtn) targetBtn.classList.add('active');
 
-            // 4. Mostrar la vista seleccionada
             const targetView = document.getElementById(`view-${tabId}`);
             if (targetView) targetView.classList.add('active');
+
+            // Cerrar menú móvil automáticamente tras clickear una opción
+            const menu = document.getElementById('navMenu');
+            menu.classList.remove('open');
+            
+            // Volver al inicio de la página suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Marcar visualmente la hora cliqueada
+        function selectHora(boton, hora) {
+            document.querySelectorAll('.hora-btn').forEach(btn => btn.classList.remove('selected'));
+            boton.classList.add('selected');
+            horaSeleccionada = hora;
+        }
+
+        // Procesar datos y redireccionar a WhatsApp
+        function enviarReserva() {
+            const servicio = document.getElementById('servicio-reserva').value;
+            const fechaInput = document.getElementById('fecha-reserva').value;
+            
+            if (!servicio) {
+                alert("Por favor, selecciona el servicio que deseas agendar.");
+                return;
+            }
+            if (!fechaInput) {
+                alert("Por favor, selecciona un día en el calendario.");
+                return;
+            }
+            if (!horaSeleccionada) {
+                alert("Por favor, selecciona un horario para tu cita.");
+                return;
+            }
+
+            // Formatear la fecha para que sea más legible (DD/MM/AAAA)
+            const partesFecha = fechaInput.split("-");
+            const fechaFormateada = `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`;
+
+            // Número de Carla
+            const telefono = "56936383638"; 
+            const mensaje = `Hola Carla, me gustaría agendar una hora para el servicio de *${servicio}* el día *${fechaFormateada}* a las *${horaSeleccionada} hrs*. Sé que la dirección es Santa Rosa 480, Los Andes. ¿Está disponible?`;
+            
+            // Crear el enlace codificado para WhatsApp
+            const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+            
+            // Abrir WhatsApp en una nueva pestaña
+            window.open(urlWhatsApp, '_blank');
         }
     </script>
 
