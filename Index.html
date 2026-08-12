@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Nosotras - Salón de Belleza</title>
+    <!-- Google Fonts: Elegancia y Legibilidad -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* PALETA DE COLORES DESDE EL LOGO */
+        :root {
+            --color-fondo-nude: #f4eae1;     /* Tono arena/nude suave */
+            --color-fondo-claro: #fbf7f4;    /* Fondo sutil degradado */
+            --color-negro-logo: #1a1a1a;     /* Letras y contrastes */
+            --color-texto-suave: #4a4a4a;    /* Color de lectura */
+            --color-blanco: #ffffff;
+            
+            --fuente-titulos: 'Playfair Display', serif;
+            --fuente-cuerpo: 'Montserrat', sans-serif;
+            --transicion: all 0.3s ease;
+        }
+
+        /* Estilos Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--fuente-cuerpo);
+            color: var(--color-texto-suave);
+            background-color: var(--color-blanco);
+            line-height: 1.7;
+        }
+
+        /* Header & Navegación Minimalista */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        /* Contenedor del Logo de Imagen */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px; /* Tamaño controlado y elegante */
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-negro-logo);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: var(--transicion);
+            opacity: 0.8;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            letter-spacing: 2px;
+        }
+
+        /* Hero Section (Fondo Nude del Logo) */
+        .hero {
+            background-color: var(--color-fondo-nude);
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "🌿"; 
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            opacity: 0.25;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: var(--fuente-titulos);
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--color-negro-logo);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-principal {
+            display: inline-block;
+            background-color: var(--color-negro-logo);
+            color: var(--color-blanco);
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 0px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: var(--transicion);
+        }
+
+        .btn-principal:hover {
+            background-color: transparent;
+            color: var(--color-negro-logo);
+            box-shadow: inset 0 0 0 1px var(--color-negro-logo);
+        }
+
+        /* Sección Servicios */
+        .servicios {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .servicios h2 {
+            font-family: var(--fuente-titulos);
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--color-negro-logo);
+            margin-bottom: 50px;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 100px));
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .servicio-card {
+            background-color: var(--color-fondo-claro);
+            padding: 50px 40px;
+            border: 1px solid rgba(26, 26, 26, 0.02);
+            text-align: left;
+            transition: var(--transicion);
+        }
+
+        .servicio-card:hover {
+            background-color: var(--color-fondo-nude);
+            transform: translateY(-3px);
+        }
+
+        .servicio-card h3 {
+            font-family: var(--fuente-titulos);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--color-negro-logo);
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .servicio-card ul {
+            list-style: none;
+        }
+
+        .servicio-card ul li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .servicio-card ul li::before {
+            content: "—";
+            color: var(--color-negro-logo);
+            font-weight: 300;
+        }
+
+        /* Sobre el Salón */
+        .sobre-salon {
+            background-color: var(--color-fondo-claro);
+            padding: 100px 20px;
+        }
+
+        .sobre-container {
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .sobre-container h2 {
+            font-family: var(--fuente-titulos);
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--color-negro-logo);
+            margin-bottom: 25px;
+        }
+
+        .sobre-container p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        /* Contacto & Footer */
+        footer {
+            background-color: var(--color-negro-logo);
+            color: var(--color-blanco);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-content h2 {
+            font-family: var(--fuente-titulos);
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .footer-content p {
+            font-weight: 300;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .btn-whatsapp {
+            display: inline-block;
+            background-color: var(--color-blanco);
+            color: var(--color-negro-logo);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: var(--transicion);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--color-fondo-nude);
+        }
+
+        .social-links {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-links a {
+            color: var(--color-blanco);
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+            transition: var(--transicion);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+        }
+
+        /* Adaptación Celulares */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            .nav-links {
+                gap: 20px;
+            }
+            .hero {
+                padding: 80px 20px;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .servicios {
+                padding: 70px 20px;
+            }
+            .servicios h2, .sobre-container h2 {
+                font-size: 2rem;
+            }
+            .servicio-card {
+                padding: 40px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (Navegación) -->
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo-container">
+                <!-- Imagen del logo real de Carla provista desde Postimg -->
+                <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Logo Entre Nosotras" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#sobre-nosotras">El Salón</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Bienvenida / Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Entre Nosotras</h1>
+            <p>Tu espacio de calma, cuidado y belleza en Los Andes. Déjate consentir con servicios personalizados diseñados para resaltar tu esencia natural.</p>
+            <a href="#contacto" class="btn-principal">Reservar una cita</a>
+        </div>
+    </section>
+
+    <!-- Listado de Servicios -->
+    <section id="servicios" class="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="servicios-grid">
+            
+            <!-- Manicure y Pedicure -->
+            <div class="servicio-card">
+                <h3>Manos & Pies</h3>
+                <ul>
+                    <li>Esmaltado Permanente</li>
+                    <li>Esmaltado Tradicional</li>
+                    <li>Manicure Completa</li>
+                    <li>Pedicure Profesional</li>
+                </ul>
+            </div>
+
+            <!-- Depilación -->
+            <div class="servicio-card">
+                <h3>Depilación</h3>
+                <ul>
+                    <li>Depilación Facial</li>
+                    <li>Depilación Corporal</li>
+                    <li>Técnicas Delicadas y Profesionales</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Reseña del Salón -->
+    <section id="sobre-nosotras" class="sobre-salon">
+        <div class="sobre-container">
+            <h2>Un momento para ti</h2>
+            <p>Ubicado en el corazón de Los Andes y atendido por su dueña Carla, <strong>Entre Nosotras</strong> nace como un concepto de belleza consciente y dedicada.</p>
+            <p>Aquí comprendemos que cuidar de tus manos, pies y piel no es solo un tema de estética, sino un momento de desconexión y regaloneo necesario. Trabajamos con dedicación y los mejores productos para garantizar que salgas renovada.</p>
+        </div>
+    </section>
+
+    <!-- Enlaces y Redes Sociales -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <h2>Agenda tu Cita</h2>
+            <p>Los Andes, Región de Valparaíso</p>
+            <p>Atención personalizada por Carla</p>
+            
+            <!-- Recuerda cambiar "TU_NUMERO_AQUI" por el número de Carla (Ej: 56912345678) -->
+            <a href="https://wa.me/TU_NUMERO_AQUI" target="_blank" class="btn-whatsapp">Agendar por WhatsApp</a>
+            
+            <div class="social-links">
+                <!-- Cambia "TU_INSTAGRAM_AQUI" por el link real -->
+                <a href="https://instagram.com/TU_INSTAGRAM_AQUI" target="_blank">Instagram</a>
+                <a href="#" target="_blank">Facebook</a>
+            </div>
+            
+            <p style="margin-top: 50px; font-size: 0.75rem; opacity: 0.4; letter-spacing: 1px;">&copy; 2026 Entre Nosotras. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
