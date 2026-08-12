@@ -250,6 +250,18 @@
             color: var(--color-negro-logo);
         }
 
+        /* Aviso de desplazamiento */
+        .aviso-scroll {
+            font-size: 0.75rem;
+            color: #b08968;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
         /* Inputs de Texto y Fecha */
         .input-texto, .input-fecha {
             width: 100%;
@@ -565,7 +577,7 @@
 
         .footer-links a:hover { opacity: 1; }
 
-        /* Adaptación para Dispositivos Móviles (Ajustado para mantener botones visibles ordenados) */
+        /* Adaptación para Dispositivos Móviles */
         @media (max-width: 850px) {
             .nav-container {
                 flex-direction: column;
@@ -647,9 +659,10 @@
                         <input type="text" id="nombre-cliente" class="input-texto" placeholder="Ej. María Pérez">
                     </div>
 
-                    <!-- Selección Múltiple de Servicios con Suma Automática -->
+                    <!-- Selección Múltiple de Servicios con Suma Automática y Aviso de Scroll -->
                     <div class="seccion-agenda">
                         <label>2. Selecciona uno o más servicios:</label>
+                        <div class="aviso-scroll">⬇️ Desliza hacia abajo para ver y elegir más servicios</div>
                         <div class="servicios-checklist">
                             <!-- Manicura -->
                             <div class="categoria-servicios-titulo">Manicura</div>
@@ -864,7 +877,7 @@
             horaSeleccionada = hora;
         }
 
-        // Enviar reserva a WhatsApp con el nuevo número y mensaje estilizado
+        // Enviar reserva a WhatsApp
         function enviarReserva() {
             const nombre = document.getElementById('nombre-cliente').value.trim();
             const fechaInput = document.getElementById('fecha-reserva').value;
@@ -900,7 +913,7 @@
             const partesFecha = fechaInput.split("-");
             const fechaFormateada = `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`;
 
-            // Nuevo número de WhatsApp configurado
+            // Número de WhatsApp configurado
             const telefono = "56984060035"; 
             
             // Construir el mensaje personalizado y elegante
