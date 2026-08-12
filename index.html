@@ -20,117 +20,158 @@
             
             --fuente-titulos: 'Playfair Display', serif;
             --fuente-cuerpo: 'Montserrat', sans-serif;
-            --transicion: all 0.3s ease;
+            --transicion: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Estilos Base */
+        /* Estilos Base Estáticos (Sin Scroll Excesivo) */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: var(--fuente-cuerpo);
             color: var(--color-texto-suave);
-            background-color: var(--color-blanco);
-            line-height: 1.7;
+            background-color: var(--color-fondo-nude);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* Header & Navegación Minimalista */
+        /* Header Fijo Fino */
         header {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
             border-bottom: 1px solid rgba(26, 26, 26, 0.05);
+            width: 100%;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 15px 20px;
-        }
-
-        /* Contenedor del Logo de Imagen */
-        .logo-container {
-            display: flex;
-            align-items: center;
+            padding: 12px 20px;
         }
 
         .logo-img {
-            height: 60px;
+            height: 50px;
             width: auto;
             object-fit: contain;
         }
 
+        /* Menú de Navegación por Pestañas (Tabs) */
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 20px;
         }
 
-        .nav-links a {
-            text-decoration: none;
+        .nav-links button {
+            background: none;
+            border: none;
             color: var(--color-negro-logo);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            transition: var(--transicion);
-            opacity: 0.8;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-            letter-spacing: 2px;
-        }
-
-        /* Hero Section (Fondo Nude del Logo) */
-        .hero {
-            background-color: var(--color-fondo-nude);
-            padding: 120px 20px;
-            text-align: center;
+            cursor: pointer;
+            padding: 8px 4px;
             position: relative;
+            opacity: 0.6;
+            transition: var(--transicion);
+            font-family: var(--fuente-cuerpo);
         }
 
-        .hero::after {
-            content: "🌿"; 
+        .nav-links button:hover, 
+        .nav-links button.active {
+            opacity: 1;
+        }
+
+        /* Línea indicadora debajo de la pestaña activa */
+        .nav-links button::after {
+            content: "";
             position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2rem;
-            opacity: 0.25;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-negro-logo);
+            transition: var(--transicion);
         }
 
-        .hero-content {
-            max-width: 700px;
+        .nav-links button.active::after {
+            width: 100%;
+        }
+
+        /* CONTENEDOR PRINCIPAL INTERACTIVO */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            max-width: 1000px;
+            width: 100%;
             margin: 0 auto;
         }
 
-        .hero h1 {
+        .window-card {
+            background-color: var(--color-blanco);
+            width: 100%;
+            min-height: 500px;
+            border: 1px solid rgba(26, 26, 26, 0.05);
+            box-shadow: 0 10px 40px rgba(26, 26, 26, 0.04);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Vistas dinámicas ocultas por defecto */
+        .tab-view {
+            display: none;
+            padding: 50px;
+            width: 100%;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Mostrar solo la pestaña activa */
+        .tab-view.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ESTILOS DE CADA VISTA --- */
+
+        /* Inicio / Bienvenida */
+        .hero-view {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .hero-view h1 {
             font-family: var(--fuente-titulos);
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 400;
             color: var(--color-negro-logo);
             margin-bottom: 20px;
-            letter-spacing: 1px;
         }
 
-        .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 35px;
+        .hero-view p {
+            font-size: 1.05rem;
             font-weight: 300;
-            letter-spacing: 0.5px;
+            margin-bottom: 35px;
         }
 
         .btn-principal {
@@ -139,12 +180,13 @@
             color: var(--color-blanco);
             padding: 14px 35px;
             text-decoration: none;
-            border-radius: 0px;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 500;
             transition: var(--transicion);
+            cursor: pointer;
+            border: none;
         }
 
         .btn-principal:hover {
@@ -153,155 +195,98 @@
             box-shadow: inset 0 0 0 1px var(--color-negro-logo);
         }
 
-        /* Sección Servicios */
-        .servicios {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .servicios h2 {
-            font-family: var(--fuente-titulos);
-            font-size: 2.4rem;
-            font-weight: 400;
-            color: var(--color-negro-logo);
-            margin-bottom: 50px;
-        }
-
-        .servicios-grid {
+        /* Cuadrícula de Servicios */
+        .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
-        .servicio-card {
+        .sub-card {
             background-color: var(--color-fondo-claro);
-            padding: 50px 40px;
+            padding: 40px 30px;
             border: 1px solid rgba(26, 26, 26, 0.02);
-            text-align: left;
-            transition: var(--transicion);
         }
 
-        .servicio-card:hover {
-            background-color: var(--color-fondo-nude);
-            transform: translateY(-3px);
-        }
-
-        .servicio-card h3 {
+        .sub-card h3 {
             font-family: var(--fuente-titulos);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 400;
             color: var(--color-negro-logo);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-bottom: 1px solid rgba(26, 26, 26, 0.1);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
-        .servicio-card ul {
+        .sub-card ul {
             list-style: none;
         }
 
-        .servicio-card ul li {
-            margin-bottom: 12px;
+        .sub-card ul li {
+            margin-bottom: 10px;
             font-size: 0.95rem;
-            font-weight: 400;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .servicio-card ul li::before {
+        .sub-card ul li::before {
             content: "—";
             color: var(--color-negro-logo);
-            font-weight: 300;
         }
 
-        /* SECCIÓN NUESTRO EQUIPO */
-        .equipo {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .equipo h2 {
-            font-family: var(--fuente-titulos);
-            font-size: 2.4rem;
-            font-weight: 400;
-            color: var(--color-negro-logo);
-            margin-bottom: 50px;
-        }
-
-        .equipo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            justify-content: center;
-        }
-
+        /* Especialistas */
         .profesional-card {
-            background-color: var(--color-blanco);
-            padding: 40px 20px;
-            border: 1px solid rgba(26, 26, 26, 0.08);
+            background-color: var(--color-fondo-claro);
+            padding: 30px 20px;
+            border: 1px solid rgba(26, 26, 26, 0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: var(--transicion);
-        }
-
-        .profesional-card:hover {
-            border-color: var(--color-negro-logo);
-            transform: translateY(-3px);
         }
 
         .profesional-logo {
-            width: 130px;
-            height: 130px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 20px;
-            border: 1px solid rgba(26, 26, 26, 0.1);
-            background-color: var(--color-fondo-claro);
+            margin-bottom: 15px;
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            background-color: var(--color-blanco);
         }
 
         .profesional-card h3 {
             font-family: var(--fuente-titulos);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 400;
             color: var(--color-negro-logo);
-            margin-bottom: 5px;
         }
 
         .profesional-rol {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--color-texto-suave);
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .profesional-card p {
-            font-size: 0.95rem;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-
-        /* Botón secundario para la interconexión de webs */
-        .btn-secundario {
-            display: inline-block;
-            background-color: transparent;
-            color: var(--color-negro-logo);
-            padding: 8px 20px;
-            text-decoration: none;
-            border: 1px solid var(--color-negro-logo);
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .profesional-card p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        .btn-secundario {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--color-negro-logo);
+            padding: 6px 16px;
+            text-decoration: none;
+            border: 1px solid var(--color-negro-logo);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: var(--transicion);
             margin-top: auto;
         }
@@ -311,261 +296,236 @@
             color: var(--color-blanco);
         }
 
-        /* Tarjeta Próximamente */
         .proximamente {
-            opacity: 0.6;
-            background-color: rgba(26, 26, 26, 0.01);
+            opacity: 0.5;
             border-style: dashed;
         }
 
-        .proximamente .profesional-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            background-color: var(--color-fondo-nude);
-            border: 1px dashed rgba(26, 26, 26, 0.2);
-        }
-
-        /* Sobre el Salón */
-        .sobre-salon {
-            background-color: var(--color-fondo-claro);
-            padding: 100px 20px;
-        }
-
-        .sobre-container {
-            max-width: 750px;
-            margin: 0 auto;
+        /* El Salón / Sobre Nosotras */
+        .info-view {
             text-align: center;
-        }
-
-        .sobre-container h2 {
-            font-family: var(--fuente-titulos);
-            font-size: 2.4rem;
-            font-weight: 400;
-            color: var(--color-negro-logo);
-            margin-bottom: 25px;
-        }
-
-        .sobre-container p {
-            font-size: 1.05rem;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-
-        /* Contacto & Footer */
-        footer {
-            background-color: var(--color-negro-logo);
-            color: var(--color-blanco);
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .footer-content h2 {
+        .info-view h2 {
             font-family: var(--fuente-titulos);
             font-size: 2.2rem;
             font-weight: 400;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
+            color: var(--color-negro-logo);
+            margin-bottom: 20px;
         }
 
-        .footer-content p {
-            font-weight: 300;
+        .info-view p {
             font-size: 1rem;
-            margin-bottom: 12px;
-            opacity: 0.9;
+            font-weight: 300;
+            margin-bottom: 15px;
         }
 
-        .btn-whatsapp {
-            display: inline-block;
+        /* Footer Fijo Elegante */
+        footer {
+            background-color: var(--color-negro-logo);
+            color: var(--color-blanco);
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .footer-actions p {
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .btn-footer-wa {
             background-color: var(--color-blanco);
             color: var(--color-negro-logo);
-            padding: 12px 30px;
+            padding: 8px 20px;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             font-weight: 500;
-            margin-top: 20px;
             transition: var(--transicion);
         }
 
-        .btn-whatsapp:hover {
+        .btn-footer-wa:hover {
             background-color: var(--color-fondo-nude);
         }
 
-        .social-links {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-        }
-
-        .social-links a {
+        .footer-links a {
             color: var(--color-blanco);
             text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.6;
+            margin: 0 10px;
+            opacity: 0.5;
+            font-size: 0.75rem;
             transition: var(--transicion);
         }
 
-        .social-links a:hover {
+        .footer-links a:hover {
             opacity: 1;
         }
 
-        /* Adaptación Celulares */
+        /* Adaptación para Celulares */
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px;
                 padding: 15px;
             }
             .nav-links {
-                gap: 20px;
+                gap: 15px;
             }
-            .hero {
-                padding: 80px 20px;
+            .tab-view {
+                padding: 30px 20px;
             }
-            .hero h1 {
-                font-size: 2.6rem;
+            .hero-view h1 {
+                font-size: 2.2rem;
             }
-            .servicios, .equipo {
-                padding: 70px 20px;
+            main {
+                padding: 15px 10px;
             }
-            .servicios h2, .equipo h2, .sobre-container h2 {
-                font-size: 2rem;
-            }
-            .servicio-card, .profesional-card {
-                padding: 40px 25px;
+            .window-card {
+                min-height: auto;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header (Navegación) -->
+    <!-- Header / Barra de Navegación -->
     <header>
         <nav class="nav-container">
-            <a href="#" class="logo-container">
-                <!-- Enlace de imagen corregido e integrado -->
+            <a href="#" onclick="switchTab('inicio'); return false;" class="logo-container">
                 <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Logo Entre Nosotras" class="logo-img">
             </a>
+            <!-- Botones Cliqueables del Menú -->
             <ul class="nav-links">
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#equipo">Especialistas</a></li>
-                <li><a href="#sobre-nosotras">El Salón</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><button id="btn-inicio" class="active" onclick="switchTab('inicio')">Inicio</button></li>
+                <li><button id="btn-servicios" onclick="switchTab('servicios')">Servicios</button></li>
+                <li><button id="btn-equipo" onclick="switchTab('equipo')">Especialistas</button></li>
+                <li><button id="btn-salon" onclick="switchTab('salon')">El Salón</button></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Bienvenida / Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Entre Nosotras</h1>
-            <p>Tu espacio de calma, cuidado y belleza en Los Andes. Déjate consentir con servicios personalizados diseñados para resaltar tu esencia natural.</p>
-            <a href="#contacto" class="btn-principal">Reservar una cita</a>
+    <!-- Contenedor Único Dinámico -->
+    <main>
+        <div class="window-card">
+            
+            <!-- Pestaña 1: Inicio -->
+            <div id="view-inicio" class="tab-view active hero-view">
+                <h1>Entre Nosotras</h1>
+                <p>Tu espacio de calma, cuidado y belleza en Los Andes. Déjate consentir con servicios personalizados diseñados para resaltar tu esencia natural.</p>
+                <button class="btn-principal" onclick="switchTab('servicios')">Ver Servicios</button>
+            </div>
+
+            <!-- Pestaña 2: Servicios -->
+            <div id="view-servicios" class="tab-view">
+                <div class="grid-layout">
+                    <!-- Manos & Pies -->
+                    <div class="sub-card">
+                        <h3>Manos & Pies</h3>
+                        <ul>
+                            <li>Esmaltado Permanente</li>
+                            <li>Esmaltado Tradicional</li>
+                            <li>Manicure Completa</li>
+                            <li>Pedicure Profesional</li>
+                        </ul>
+                    </div>
+                    <!-- Depilación -->
+                    <div class="sub-card">
+                        <h3>Depilación</h3>
+                        <ul>
+                            <li>Depilación Facial</li>
+                            <li>Depilación Corporal</li>
+                            <li>Técnicas Delicadas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestaña 3: Especialistas -->
+            <div id="view-equipo" class="tab-view">
+                <div class="grid-layout">
+                    <!-- Carla -->
+                    <div class="profesional-card">
+                        <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Carla" class="profesional-logo">
+                        <h3>Carla</h3>
+                        <div class="profesional-rol">Manicurista & Dueña</div>
+                        <p>Especialista en el cuidado integral de tus manos y pies, con acabados impecables.</p>
+                    </div>
+                    <!-- Lash Marii -->
+                    <div class="profesional-card">
+                        <img src="https://i.postimg.cc/JDLsgyv4/IMG-3638.jpg" alt="Lash Marii" class="profesional-logo">
+                        <h3>Lash Marii</h3>
+                        <div class="profesional-rol">Lashista Profesional</div>
+                        <p>Experta en resaltar tu mirada mediante extensiones pelo a pelo y técnicas precisas.</p>
+                        <a href="https://lashmarii-web.vercel.app" target="_blank" class="btn-secundario">Portafolio</a>
+                    </div>
+                    <!-- Peluquería -->
+                    <div class="profesional-card proximamente">
+                        <div class="profesional-logo" style="display:flex; align-items:center; justify-content:center; font-size:2rem; background:#f4eae1;">✨</div>
+                        <h3>Peluquería</h3>
+                        <div class="profesional-rol">Próximamente</div>
+                        <p>Preparando un nuevo espacio de estilismo capilar para ti.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestaña 4: El Salón -->
+            <div id="view-salon" class="tab-view info-view">
+                <h2>Un momento para ti</h2>
+                <p>Ubicado en el corazón de Los Andes y atendido por su dueña Carla, <strong>Entre Nosotras</strong> nace como un concepto de belleza consciente y dedicada.</p>
+                <p>Aquí comprendemos que cuidar de tus manos, pies y piel no es solo un tema de estética, sino un momento de desconexión y regaloneo necesario.</p>
+            </div>
+
         </div>
-    </section>
+    </main>
 
-    <!-- Listado de Servicios -->
-    <section id="servicios" class="servicios">
-        <h2>Nuestros Servicios</h2>
-        <div class="servicios-grid">
-            
-            <!-- Manicure y Pedicure -->
-            <div class="servicio-card">
-                <h3>Manos & Pies</h3>
-                <ul>
-                    <li>Esmaltado Permanente</li>
-                    <li>Esmaltado Tradicional</li>
-                    <li>Manicure Completa</li>
-                    <li>Pedicure Profesional</li>
-                </ul>
-            </div>
-
-            <!-- Depilación -->
-            <div class="servicio-card">
-                <h3>Depilación</h3>
-                <ul>
-                    <li>Depilación Facial</li>
-                    <li>Depilación Corporal</li>
-                    <li>Técnicas Delicadas y Profesionales</li>
-                </ul>
-            </div>
-
+    <!-- Footer Fijo de Contacto -->
+    <footer>
+        <div class="footer-actions">
+            <p>Los Andes, Región de Valparaíso — Atendido por Carla</p>
+            <a href="https://wa.me/569XXXXXXXX" target="_blank" class="btn-footer-wa">Agendar Cita</a>
         </div>
-    </section>
-
-    <!-- SECCIÓN: NUESTRO EQUIPO / ESPECIALISTAS -->
-    <section id="equipo" class="equipo">
-        <h2>Especialistas en ti</h2>
-        <div class="equipo-grid">
-            
-            <!-- Profesional 1: Carla -->
-            <div class="profesional-card">
-                <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Carla - Manicurista" class="profesional-logo">
-                <h3>Carla</h3>
-                <div class="profesional-rol">Manicurista & Dueña</div>
-                <p>Especialista en el cuidado integral de tus manos y pies, dedicada a entregarte un acabado impecable y personalizado.</p>
-            </div>
-
-            <!-- Profesional 2: Lash Marii -->
-            <div class="profesional-card">
-                <!-- Ruta directa corregida para el renderizado del logo de Lash Marii -->
-                <img src="https://i.postimg.cc/JDLsgyv4/IMG-3638.jpg" alt="Lash Marii - Lashista" class="profesional-logo">
-                <h3>Lash Marii</h3>
-                <div class="profesional-rol">Lashista Profesional</div>
-                <p>Experta en resaltar el poder de tu mirada mediante extensiones de pestañas pelo a pelo y técnicas de alta precisión.</p>
-                <a href="https://lashmarii-web.vercel.app" target="_blank" class="btn-secundario">Ver mi Portafolio</a>
-            </div>
-
-            <!-- Profesional 3: Peluquería (Próximamente) -->
-            <div class="profesional-card proximamente">
-                <div class="profesional-logo">✨</div>
-                <h3>Peluquería</h3>
-                <div class="profesional-rol">Próximamente</div>
-                <p>Estamos preparando un nuevo espacio de estilismo y cuidado capilar para consentirte por completo. ¡Espera noticias muy pronto!</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Reseña del Salón -->
-    <section id="sobre-nosotras" class="sobre-salon">
-        <div class="sobre-container">
-            <h2>Un momento para ti</h2>
-            <p>Ubicado en el corazón de Los Andes y atendido por su dueña Carla, <strong>Entre Nosotras</strong> nace como un concepto de belleza consciente y dedicada.</p>
-            <p>Aquí comprendemos que cuidar de tus manos, pies y piel no es solo un tema de estética, sino un momento de desconexión y regaloneo necesario. Trabajamos con dedicación y los mejores productos para garantizar que salgas renovada.</p>
-        </div>
-    </section>
-
-    <!-- Enlaces y Redes Sociales -->
-    <footer id="contacto">
-        <div class="footer-content">
-            <h2>Agenda tu Cita</h2>
-            <p>Los Andes, Región de Valparaíso</p>
-            <p>Atención personalizada por Carla</p>
-            
-            <!-- Recuerda cambiar "569XXXXXXXX" por el número real de Carla -->
-            <a href="https://wa.me/569XXXXXXXX" target="_blank" class="btn-whatsapp">Agendar por WhatsApp</a>
-            
-            <div class="social-links">
-                <!-- Recuerda ingresar los perfiles correspondientes -->
-                <a href="https://instagram.com/" target="_blank">Instagram</a>
-                <a href="#" target="_blank">Facebook</a>
-            </div>
-            
-            <p style="margin-top: 50px; font-size: 0.75rem; opacity: 0.4; letter-spacing: 1px;">&copy; 2026 Entre Nosotras. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="https://instagram.com/" target="_blank">Instagram</a>
+            <a href="#">Facebook</a>
         </div>
     </footer>
+
+    <!-- Script en Vanilla JS para controlar las vistas dinámicas -->
+    <script>
+        function switchTab(tabId) {
+            // 1. Quitar la clase activa de todos los botones de navegación
+            document.querySelectorAll('.nav-links button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 2. Ocultar todas las vistas de contenido
+            document.querySelectorAll('.tab-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            // 3. Activar el botón correspondiente
+            const targetBtn = document.getElementById(`btn-${tabId}`);
+            if (targetBtn) targetBtn.classList.add('active');
+
+            // 4. Mostrar la vista seleccionada
+            const targetView = document.getElementById(`view-${tabId}`);
+            if (targetView) targetView.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
