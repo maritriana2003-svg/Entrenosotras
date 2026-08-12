@@ -72,7 +72,7 @@
             object-fit: contain;
         }
 
-        /* Hamburguesa para Móviles (Visible solo en celular al lado del logo) */
+        /* Hamburguesa para Móviles */
         .menu-toggle {
             display: none;
             background: none;
@@ -234,9 +234,9 @@
             box-shadow: inset 0 0 0 1px var(--color-negro-logo);
         }
 
-        /* --- VISTA: CALENDARIO DE RESERVAS --- */
+        /* --- VISTA: CALENDARIO Y FORMULARIO DE RESERVAS --- */
         .reserva-container {
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto;
             width: 100%;
             text-align: center;
@@ -273,8 +273,8 @@
             color: var(--color-negro-logo);
         }
 
-        /* Selects e Inputs */
-        .select-servicio, .input-fecha {
+        /* Inputs de Texto y Fecha */
+        .input-texto, .input-fecha {
             width: 100%;
             padding: 12px;
             font-family: var(--fuente-cuerpo);
@@ -286,8 +286,74 @@
             transition: var(--transicion);
         }
 
-        .select-servicio:focus, .input-fecha:focus {
+        .input-texto:focus, .input-fecha:focus {
             border-color: var(--color-negro-logo);
+        }
+
+        /* Contenedor de Checkboxes con Scroll interno para servicios múltiples */
+        .servicios-checklist {
+            background-color: var(--color-fondo-claro);
+            border: 1px solid rgba(26, 26, 26, 0.15);
+            padding: 15px;
+            max-height: 240px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .categoria-servicios-titulo {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--color-negro-logo);
+            margin: 10px 0 5px 0;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+            padding-bottom: 3px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            cursor: pointer;
+            accent-color: var(--color-negro-logo);
+            margin-right: 10px;
+            transform: scale(1.1);
+        }
+
+        .checkbox-label-text {
+            flex: 1;
+            color: var(--color-texto-suave);
+        }
+
+        .checkbox-precio {
+            font-weight: 600;
+            color: var(--color-negro-logo);
+        }
+
+        /* Caja de Total Estimado */
+        .total-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--color-negro-logo);
+            color: var(--color-blanco);
+            padding: 12px 18px;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .total-monto {
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         /* Grid de Horarios */
@@ -522,7 +588,7 @@
 
         .footer-links a:hover { opacity: 1; }
 
-        /* Adaptación para Dispositivos Móviles (Logo y hamburguesa lado a lado) */
+        /* Adaptación para Dispositivos Móviles */
         @media (max-width: 820px) {
             .nav-container {
                 display: flex;
@@ -532,11 +598,11 @@
             }
 
             .menu-toggle {
-                display: block; /* Muestra el botón de hamburguesa al lado derecho del logo */
+                display: block; 
             }
 
             .nav-right {
-                display: none; /* Oculto por defecto, se despliega al hacer click */
+                display: none; 
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
@@ -550,7 +616,7 @@
             }
 
             .nav-right.open {
-                display: flex; /* Se abre al presionar las tres líneas */
+                display: flex; 
             }
 
             .nav-links {
@@ -579,15 +645,12 @@
     <!-- Header / Barra de Navegación -->
     <header>
         <nav class="nav-container">
-            <!-- Logo a la izquierda -->
             <a href="#" onclick="switchTab('inicio'); return false;" class="logo-container">
                 <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Logo Entre Nosotras" class="logo-img">
             </a>
             
-            <!-- Botón Hamburguesa a la derecha del logo en celulares -->
             <button class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú">☰</button>
             
-            <!-- Menú de navegación (en PC se ve normal, en celular se despliega al tocar la hamburguesa) -->
             <div class="nav-right" id="navMenu">
                 <ul class="nav-links">
                     <li><button id="btn-inicio" class="active" onclick="switchTab('inicio')">Inicio</button></li>
@@ -611,60 +674,72 @@
                 <button onclick="switchTab('reservar')" class="btn-principal">Reservar Ahora</button>
             </div>
 
-            <!-- PESTAÑA INTERACTIVA: RESERVA CON CALENDARIO -->
+            <!-- PESTAÑA INTERACTIVA: RESERVA CON SELECCIÓN MÚLTIPLE Y TOTAL AUTOMÁTICO -->
             <div id="view-reservar" class="tab-view">
                 <div class="reserva-container">
                     <h2>Reserva tu Hora</h2>
                     <p class="direccion-texto">📍 Ubicación: Santa Rosa 480, Los Andes</p>
                     
-                    <!-- 1. Selección de Servicio -->
+                    <!-- Campo de Nombre -->
                     <div class="seccion-agenda">
-                        <label for="servicio-reserva">1. Selecciona el servicio:</label>
-                        <select id="servicio-reserva" class="select-servicio">
-                            <option value="" disabled selected>— Elige un servicio —</option>
-                            <optgroup label="Manicura">
-                                <option value="Limpieza/Exfoliación Manicura">Limpieza/Exfoliación — $9.000</option>
-                                <option value="Esmaltado Tradicional Manicura">Esmaltado Tradicional — $12.000</option>
-                                <option value="Colores Lisos Manicura">Colores Lisos — $17.000</option>
-                                <option value="Personalizado Manicura">Personalizado — $20.000</option>
-                                <option value="Kapping Polygel">Kapping Polygel — $5.000</option>
-                            </optgroup>
-                            <optgroup label="Pedicura">
-                                <option value="Podología Preventiva">Podología Preventiva — $12.000</option>
-                                <option value="Esmaltado Tradicional Pedicura">Esmaltado Tradicional — $16.000</option>
-                                <option value="Colores Lisos Pedicura">Colores Lisos — $18.000</option>
-                                <option value="Personalizado Pedicura">Personalizado — $20.000</option>
-                                <option value="Reconstrucción C/U">Reconstrucción C/U — $2.000</option>
-                            </optgroup>
-                            <optgroup label="Depilación">
-                                <option value="Perfilado de cejas">Perfilado de cejas — $3.000</option>
-                                <option value="Bozo">Bozo — $5.000</option>
-                                <option value="Rostro completo">Rostro completo — $7.000</option>
-                                <option value="Axilas">Axilas — $4.000</option>
-                                <option value="Medios Brazos">Medios Brazos — $5.000</option>
-                                <option value="Brazos completos">Brazos completos — $7.000</option>
-                                <option value="Abdomen">Abdomen — $6.000</option>
-                                <option value="Media Espalda">Media Espalda — $5.000</option>
-                                <option value="Espalda completa">Espalda completa — $7.000</option>
-                                <option value="Rebaje/Interglúteos">Rebaje/Interglúteos — $13.000</option>
-                                <option value="Rebaje Bikini">Rebaje Bikini — $8.000</option>
-                                <option value="Glúteos">Glúteos — $6.000</option>
-                                <option value="Medias piernas">Medias piernas — $8.000</option>
-                                <option value="Piernas completas">Piernas completas — $14.000</option>
-                                <option value="Depilación pies">Depilación pies — $3.000</option>
-                            </optgroup>
-                        </select>
+                        <label for="nombre-cliente">1. Tu Nombre:</label>
+                        <input type="text" id="nombre-cliente" class="input-texto" placeholder="Ej. María Pérez">
                     </div>
 
-                    <!-- 2. Selección de Día -->
+                    <!-- Selección Múltiple de Servicios con Suma Automática -->
                     <div class="seccion-agenda">
-                        <label for="fecha-reserva">2. Selecciona el día:</label>
+                        <label>2. Selecciona uno o más servicios:</label>
+                        <div class="servicios-checklist">
+                            <!-- Manicura -->
+                            <div class="categoria-servicios-titulo">Manicura</div>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Limpieza/Exfoliación Manicura" data-precio="9000" onchange="calcularTotal()"><span class="checkbox-label-text">Limpieza/Exfoliación</span><span class="checkbox-precio">$9.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Esmaltado Tradicional Manicura" data-precio="12000" onchange="calcularTotal()"><span class="checkbox-label-text">Esmaltado Tradicional</span><span class="checkbox-precio">$12.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Colores Lisos Manicura" data-precio="17000" onchange="calcularTotal()"><span class="checkbox-label-text">Colores Lisos</span><span class="checkbox-precio">$17.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Personalizado Manicura" data-precio="20000" onchange="calcularTotal()"><span class="checkbox-label-text">Personalizado</span><span class="checkbox-precio">$20.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Kapping Polygel" data-precio="5000" onchange="calcularTotal()"><span class="checkbox-label-text">Kapping Polygel</span><span class="checkbox-precio">$5.000</span></label>
+
+                            <!-- Pedicura -->
+                            <div class="categoria-servicios-titulo">Pedicura</div>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Podología Preventiva" data-precio="12000" onchange="calcularTotal()"><span class="checkbox-label-text">Podología Preventiva</span><span class="checkbox-precio">$12.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Esmaltado Tradicional Pedicura" data-precio="16000" onchange="calcularTotal()"><span class="checkbox-label-text">Esmaltado Tradicional</span><span class="checkbox-precio">$16.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Colores Lisos Pedicura" data-precio="18000" onchange="calcularTotal()"><span class="checkbox-label-text">Colores Lisos</span><span class="checkbox-precio">$18.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Personalizado Pedicura" data-precio="20000" onchange="calcularTotal()"><span class="checkbox-label-text">Personalizado</span><span class="checkbox-precio">$20.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Reconstrucción C/U" data-precio="2000" onchange="calcularTotal()"><span class="checkbox-label-text">Reconstrucción C/U</span><span class="checkbox-precio">$2.000</span></label>
+
+                            <!-- Depilación -->
+                            <div class="categoria-servicios-titulo">Depilación</div>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Perfilado de cejas" data-precio="3000" onchange="calcularTotal()"><span class="checkbox-label-text">Perfilado de cejas</span><span class="checkbox-precio">$3.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Bozo" data-precio="5000" onchange="calcularTotal()"><span class="checkbox-label-text">Bozo</span><span class="checkbox-precio">$5.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Rostro completo" data-precio="7000" onchange="calcularTotal()"><span class="checkbox-label-text">Rostro completo</span><span class="checkbox-precio">$7.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Axilas" data-precio="4000" onchange="calcularTotal()"><span class="checkbox-label-text">Axilas</span><span class="checkbox-precio">$4.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Medios Brazos" data-precio="5000" onchange="calcularTotal()"><span class="checkbox-label-text">Medios Brazos</span><span class="checkbox-precio">$5.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Brazos completos" data-precio="7000" onchange="calcularTotal()"><span class="checkbox-label-text">Brazos completos</span><span class="checkbox-precio">$7.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Abdomen" data-precio="6000" onchange="calcularTotal()"><span class="checkbox-label-text">Abdomen</span><span class="checkbox-precio">$6.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Media Espalda" data-precio="5000" onchange="calcularTotal()"><span class="checkbox-label-text">Media Espalda</span><span class="checkbox-precio">$5.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Espalda completa" data-precio="7000" onchange="calcularTotal()"><span class="checkbox-label-text">Espalda completa</span><span class="checkbox-precio">$7.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Rebaje/Interglúteos" data-precio="13000" onchange="calcularTotal()"><span class="checkbox-label-text">Rebaje/Interglúteos</span><span class="checkbox-precio">$13.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Rebaje Bikini" data-precio="8000" onchange="calcularTotal()"><span class="checkbox-label-text">Rebaje Bikini</span><span class="checkbox-precio">$8.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Glúteos" data-precio="6000" onchange="calcularTotal()"><span class="checkbox-label-text">Glúteos</span><span class="checkbox-precio">$6.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Medias piernas" data-precio="8000" onchange="calcularTotal()"><span class="checkbox-label-text">Medias piernas</span><span class="checkbox-precio">$8.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Piernas completas" data-precio="14000" onchange="calcularTotal()"><span class="checkbox-label-text">Piernas completas</span><span class="checkbox-precio">$14.000</span></label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Depilación pies" data-precio="3000" onchange="calcularTotal()"><span class="checkbox-label-text">Depilación pies</span><span class="checkbox-precio">$3.000</span></label>
+                        </div>
+                        <!-- Cuadro con la Suma Total -->
+                        <div class="total-box">
+                            <span>Total Estimado:</span>
+                            <span id="monto-total" class="total-monto">$0</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Selección de Día -->
+                    <div class="seccion-agenda">
+                        <label for="fecha-reserva">3. Selecciona el día:</label>
                         <input type="date" id="fecha-reserva" class="input-fecha">
                     </div>
 
-                    <!-- 3. Selección de Horas -->
+                    <!-- 4. Selección de Horas -->
                     <div class="seccion-agenda">
-                        <label>3. Selecciona la hora (Horario Militar):</label>
+                        <label>4. Selecciona la hora (Horario Militar):</label>
                         <div class="horas-grid">
                             <button class="hora-btn" onclick="selectHora(this, '10:00')">10:00</button>
                             <button class="hora-btn" onclick="selectHora(this, '12:00')">12:00</button>
@@ -683,7 +758,6 @@
             <!-- Pestaña 2: Servicios -->
             <div id="view-servicios" class="tab-view">
                 <div class="grid-layout">
-                    <!-- Categoría: Manicura -->
                     <div class="sub-card">
                         <h3>Manicura</h3>
                         <ul>
@@ -694,8 +768,6 @@
                             <li><span class="servicio-nombre">Kapping Polygel</span> <span class="servicio-precio">$5.000</span></li>
                         </ul>
                     </div>
-
-                    <!-- Categoría: Pedicura -->
                     <div class="sub-card">
                         <h3>Pedicura</h3>
                         <ul>
@@ -706,8 +778,6 @@
                             <li><span class="servicio-nombre">Reconstrucción C/U</span> <span class="servicio-precio">$2.000</span></li>
                         </ul>
                     </div>
-
-                    <!-- Categoría: Depilación -->
                     <div class="sub-card">
                         <h3>Depilación</h3>
                         <ul>
@@ -785,11 +855,11 @@
         </div>
     </footer>
 
-    <!-- Logica JavaScript para Pestañas, Menú y Calendario -->
+    <!-- Logica JavaScript para Pestañas, Menú, Checkboxes y Total -->
     <script>
         let horaSeleccionada = "";
 
-        // Establecer la fecha mínima dinámicamente al cargar la página (No permitir días pasados)
+        // Establecer fecha mínima en el calendario
         window.addEventListener('DOMContentLoaded', () => {
             const hoy = new Date();
             const yyyy = hoy.getFullYear();
@@ -799,17 +869,16 @@
             if (mm < 10) mm = '0' + mm;
             if (dd < 10) dd = '0' + dd;
 
-            const fechaMinima = `${yyyy}-${mm}-${dd}`;
-            document.getElementById('fecha-reserva').min = fechaMinima;
+            document.getElementById('fecha-reserva').min = `${yyyy}-${mm}-${dd}`;
         });
 
-        // Alternar visualización del menú en pantallas móviles
+        // Alternar menú hamburguesa en móviles
         function toggleMenu() {
             const menu = document.getElementById('navMenu');
             menu.classList.toggle('open');
         }
 
-        // Cambiar entre pestañas de la aplicación
+        // Cambiar pestañas
         function switchTab(tabId) {
             document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
@@ -820,28 +889,42 @@
             const targetView = document.getElementById(`view-${tabId}`);
             if (targetView) targetView.classList.add('active');
 
-            // Cerrar menú móvil automáticamente tras clickear una opción
             const menu = document.getElementById('navMenu');
             menu.classList.remove('open');
             
-            // Volver al inicio de la página suavemente
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Marcar visualmente la hora cliqueada
+        // Calcular la suma total automáticamente al marcar servicios
+        function calcularTotal() {
+            const checkboxes = document.querySelectorAll('input[name="servicio"]:checked');
+            let total = 0;
+            checkboxes.forEach(cb => {
+                total += parseInt(cb.getAttribute('data-precio'));
+            });
+            document.getElementById('monto-total').innerText = `$${total.toLocaleString('es-CL')}`;
+        }
+
+        // Seleccionar hora
         function selectHora(boton, hora) {
             document.querySelectorAll('.hora-btn').forEach(btn => btn.classList.remove('selected'));
             boton.classList.add('selected');
             horaSeleccionada = hora;
         }
 
-        // Procesar datos y redireccionar a WhatsApp
+        // Enviar reserva con nombre, servicios múltiples, total y fecha a WhatsApp
         function enviarReserva() {
-            const servicio = document.getElementById('servicio-reserva').value;
+            const nombre = document.getElementById('nombre-cliente').value.trim();
             const fechaInput = document.getElementById('fecha-reserva').value;
+            const checkboxes = document.querySelectorAll('input[name="servicio"]:checked');
             
-            if (!servicio) {
-                alert("Por favor, selecciona el servicio que deseas agendar.");
+            if (!nombre) {
+                alert("Por favor, ingresa tu nombre.");
+                document.getElementById('nombre-cliente').focus();
+                return;
+            }
+            if (checkboxes.length === 0) {
+                alert("Por favor, selecciona al menos un servicio.");
                 return;
             }
             if (!fechaInput) {
@@ -853,18 +936,31 @@
                 return;
             }
 
-            // Formatear la fecha para que sea más legible (DD/MM/AAAA)
+            // Recolectar nombres de los servicios seleccionados
+            let listaServicios = [];
+            let totalMonto = 0;
+            checkboxes.forEach(cb => {
+                listaServicios.push(cb.value);
+                totalMonto += parseInt(cb.getAttribute('data-precio'));
+            });
+
+            // Formatear la fecha (DD/MM/AAAA)
             const partesFecha = fechaInput.split("-");
             const fechaFormateada = `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`;
 
             // Número de Carla
             const telefono = "56936383638"; 
-            const mensaje = `Hola Carla, me gustaría agendar una hora para el servicio de *${servicio}* el día *${fechaFormateada}* a las *${horaSeleccionada} hrs*. Sé que la dirección es Santa Rosa 480, Los Andes. ¿Está disponible?`;
             
-            // Crear el enlace codificado para WhatsApp
+            // Construir el mensaje personalizado
+            const mensaje = `Hola Carla, soy *${nombre}* y quiero reservar contigo para los siguientes servicios:\n\n` +
+                            `• ${listaServicios.join('\n• ')}\n\n` +
+                            `💰 *Total estimado:* $${totalMonto.toLocaleString('es-CL')}\n` +
+                            `📅 *Día:* ${fechaFormateada}\n` +
+                            `⏰ *Hora:* ${horaSeleccionada} hrs\n` +
+                            `📍 *Ubicación:* Santa Rosa 480, Los Andes\n\n` +
+                            `¿Está disponible?`;
+            
             const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-            
-            // Abrir WhatsApp en una nueva pestaña
             window.open(urlWhatsApp, '_blank');
         }
     </script>
