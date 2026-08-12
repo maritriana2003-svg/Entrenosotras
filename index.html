@@ -7,7 +7,7 @@
     <!-- Google Fonts: Elegancia y Legibilidad -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
         /* PALETA DE COLORES DESDE EL LOGO */
@@ -17,7 +17,6 @@
             --color-negro-logo: #1a1a1a;     /* Letras y contrastes */
             --color-texto-suave: #4a4a4a;    /* Color de lectura */
             --color-blanco: #ffffff;
-            --color-dorado-sutil: #d4a373;   /* Detalle elegante */
             
             --fuente-titulos: 'Playfair Display', serif;
             --fuente-cuerpo: 'Montserrat', sans-serif;
@@ -62,21 +61,27 @@
             position: relative;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
         .logo-img {
-            height: 50px;
+            height: 45px;
             width: auto;
             object-fit: contain;
         }
 
-        /* Hamburguesa para Móviles */
+        /* Hamburguesa para Móviles (Visible solo en celular al lado del logo) */
         .menu-toggle {
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--color-negro-logo);
             cursor: pointer;
             z-index: 1100;
+            padding: 5px;
         }
 
         .nav-right {
@@ -180,7 +185,7 @@
         .tab-view.active {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Alineado arriba para que los títulos se posicionen bien */
+            justify-content: center;
         }
 
         @keyframes fadeIn {
@@ -188,41 +193,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- NUEVOS ESTILOS: ENCABEZADO DE SECCIÓN INTERNO --- */
-        .seccion-header {
-            text-align: center;
-            margin-bottom: 40px;
-            width: 100%;
-        }
-
-        .seccion-header h2 {
-            font-family: var(--fuente-titulos);
-            font-size: 2.4rem;
-            font-weight: 400;
-            color: var(--color-negro-logo);
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .seccion-header h2::after {
-            content: "♡";
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.9rem;
-            color: var(--color-dorado-sutil);
-            background: var(--color-blanco);
-            padding: 0 10px;
-        }
-
         /* --- VISTA: INICIO --- */
         .hero-view {
             text-align: center;
             max-width: 650px;
-            margin: auto; /* Centrado perfecto solo en el inicio */
+            margin: 0 auto;
         }
 
         .hero-view h1 {
@@ -267,11 +242,18 @@
             text-align: center;
         }
 
+        .reserva-container h2 {
+            font-family: var(--fuente-titulos);
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--color-negro-logo);
+            margin-bottom: 10px;
+        }
+
         .direccion-texto {
             font-size: 0.9rem;
             color: var(--color-texto-suave);
-            margin-top: -25px;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             font-weight: 400;
             letter-spacing: 0.5px;
         }
@@ -349,7 +331,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            width: 100%;
         }
 
         .sub-card {
@@ -371,7 +352,6 @@
 
         .sub-card ul { list-style: none; }
         
-        /* Estilos para Lista con Precios Alineados */
         .sub-card ul li {
             margin-bottom: 12px;
             font-size: 0.95rem;
@@ -496,11 +476,18 @@
             margin: 0 auto;
         }
 
-        .info-view p {
-            font-size: 1.05rem;
-            font-weight: 300;
+        .info-view h2 {
+            font-family: var(--fuente-titulos);
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--color-negro-logo);
             margin-bottom: 20px;
-            line-height: 1.7;
+        }
+
+        .info-view p {
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 15px;
         }
 
         /* Footer */
@@ -535,14 +522,21 @@
 
         .footer-links a:hover { opacity: 1; }
 
-        /* Adaptación para Dispositivos Móviles */
+        /* Adaptación para Dispositivos Móviles (Logo y hamburguesa lado a lado) */
         @media (max-width: 820px) {
+            .nav-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 15px;
+            }
+
             .menu-toggle {
-                display: block;
+                display: block; /* Muestra el botón de hamburguesa al lado derecho del logo */
             }
 
             .nav-right {
-                display: none;
+                display: none; /* Oculto por defecto, se despliega al hacer click */
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
@@ -556,7 +550,7 @@
             }
 
             .nav-right.open {
-                display: flex;
+                display: flex; /* Se abre al presionar las tres líneas */
             }
 
             .nav-links {
@@ -574,7 +568,6 @@
 
             .tab-view { padding: 30px 10px; }
             .hero-view h1 { font-size: 2.2rem; }
-            .seccion-header h2 { font-size: 1.8rem; }
             main { padding: 15px 5px; }
             .window-card { min-height: auto; }
             .profesional-card { min-height: auto; }
@@ -586,13 +579,15 @@
     <!-- Header / Barra de Navegación -->
     <header>
         <nav class="nav-container">
+            <!-- Logo a la izquierda -->
             <a href="#" onclick="switchTab('inicio'); return false;" class="logo-container">
                 <img src="https://i.postimg.cc/YL0D1Pd1/IMG-3638.jpg" alt="Logo Entre Nosotras" class="logo-img">
             </a>
             
-            <!-- Botón Hamburguesa -->
+            <!-- Botón Hamburguesa a la derecha del logo en celulares -->
             <button class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú">☰</button>
             
+            <!-- Menú de navegación (en PC se ve normal, en celular se despliega al tocar la hamburguesa) -->
             <div class="nav-right" id="navMenu">
                 <ul class="nav-links">
                     <li><button id="btn-inicio" class="active" onclick="switchTab('inicio')">Inicio</button></li>
@@ -618,10 +613,8 @@
 
             <!-- PESTAÑA INTERACTIVA: RESERVA CON CALENDARIO -->
             <div id="view-reservar" class="tab-view">
-                <div class="seccion-header">
-                    <h2>Reserva tu Hora</h2>
-                </div>
                 <div class="reserva-container">
+                    <h2>Reserva tu Hora</h2>
                     <p class="direccion-texto">📍 Ubicación: Santa Rosa 480, Los Andes</p>
                     
                     <!-- 1. Selección de Servicio -->
@@ -689,9 +682,6 @@
 
             <!-- Pestaña 2: Servicios -->
             <div id="view-servicios" class="tab-view">
-                <div class="seccion-header">
-                    <h2>Nuestros Valores</h2>
-                </div>
                 <div class="grid-layout">
                     <!-- Categoría: Manicura -->
                     <div class="sub-card">
@@ -743,9 +733,6 @@
 
             <!-- Pestaña 3: Especialistas -->
             <div id="view-equipo" class="tab-view">
-                <div class="seccion-header">
-                    <h2>Nuestras Especialistas</h2>
-                </div>
                 <div class="grid-layout">
                     <div class="profesional-card">
                         <div class="profesional-info">
@@ -779,9 +766,7 @@
 
             <!-- Pestaña 4: El Salón -->
             <div id="view-salon" class="tab-view info-view">
-                <div class="seccion-header">
-                    <h2>El Salón</h2>
-                </div>
+                <h2>Un momento para ti</h2>
                 <p>Ubicado en el corazón de Los Andes y atendido por su dueña Carla, <strong>Entre Nosotras</strong> nace como un concepto de belleza consciente y dedicada.</p>
                 <p>Aquí comprendemos que cuidar de tus manos, pies y piel no es solo un tema de estética, sino un momento de desconexión y regaloneo necesario.</p>
             </div>
